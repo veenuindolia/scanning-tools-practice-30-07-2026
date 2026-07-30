@@ -29,9 +29,25 @@ jobs:
 
       - name: Terraform init
         run: terraform init
+      - name: Run TFLint
+        run: |
+          tflint --init
+          tflint
+
+      - name: Run tfsec
+        run: tfsec .
+
+      - name: Run Gitleaks
+        run: |
+          gitleaks detect --source . --report-format json --report-path gitleaks-report.json
+
+      - name: Run TruffleHog
+        run: |
+          trufflehog filesystem . --json   
+      
+         
 
       - name: Plan
         run: terraform plan
 
-      - name: Apply
-        run: terraform apply -auto-approve
+    
