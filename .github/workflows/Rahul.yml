@@ -28,6 +28,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform init
+        working-directory: Environment/Pre-Prod
         run: terraform init
         
       - name: Setup TFLint
