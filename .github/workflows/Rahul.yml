@@ -49,18 +49,6 @@ jobs:
           --format json \
           --out tfsec-report
 
-      - name: Install Gitleaks
-        run: |
-          wget https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_linux_x64.tar.gz
-          tar -xzf gitleaks_linux_x64.tar.gz
-          sudo mv gitleaks /usr/local/bin/
-
-      - name: Run Gitleaks
-        run: |
-          gitleaks detect \
-          --source . \
-          --report-format json \
-          --report-path gitleaks-report.json
           
       - name: Install TruffleHog
         run: |
