@@ -49,15 +49,6 @@ jobs:
           --format json \
           --out tfsec-report
 
-          
-      - name: Install TruffleHog
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh
-
-      - name: Run TruffleHog
-        run: |
-          trufflehog filesystem . \
-          --json > trufflehog-report.json
          
 
       - name: Plan
