@@ -29,22 +29,47 @@ jobs:
 
       - name: Terraform init
         run: terraform init
+        
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Init TFLint
+        run: tflint --init
+
       - name: Run TFLint
+        run: tflint
+
+      - name: Install tfsec
         run: |
-          tflint --init
-          tflint
+          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
       - name: Run tfsec
-        run: tfsec .
+        run: |
+          tfsec . \
+          --format json \
+          --out tfsec-report
+
+      - name: Install Gitleaks
+        run: |
+          wget https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_linux_x64.tar.gz
+          tar -xzf gitleaks_linux_x64.tar.gz
+          sudo mv gitleaks /usr/local/bin/
 
       - name: Run Gitleaks
         run: |
-          gitleaks detect --source . --report-format json --report-path gitleaks-report.json
+          gitleaks detect \
+          --source . \
+          --report-format json \
+          --report-path gitleaks-report.json
+          
+      - name: Install TruffleHog
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh
 
       - name: Run TruffleHog
         run: |
-          trufflehog filesystem . --json   
-      
+          trufflehog filesystem . \
+          --json > trufflehog-report.json
          
 
       - name: Plan
