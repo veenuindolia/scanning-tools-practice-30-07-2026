@@ -1,7 +1,7 @@
 name: Learning Scanning Tools
 
 on:
-  pull_request:
+  push:
     branches:
     - main
 
