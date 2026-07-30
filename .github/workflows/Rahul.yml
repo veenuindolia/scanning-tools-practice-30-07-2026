@@ -46,6 +46,9 @@ jobs:
         working-directory: Environment/Pre-Prod
         run: terraform plan
 
+      - name: Apply
+        working-directory: Environment/Pre-Prod
+        run: terraform apply -auto-approve  
         
 
     
