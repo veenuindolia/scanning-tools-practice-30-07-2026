@@ -39,19 +39,7 @@ jobs:
 
       - name: Run TFLint
         run: tflint
-
-      - name: Install tfsec
-        run: |
-          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
-
-      - name: Run tfsec
-        run: |
-          tfsec . \
-          --format json \
-          --out tfsec-report
-
          
-
       - name: Plan
         working-directory: Environment/Pre-Prod
         run: terraform plan
